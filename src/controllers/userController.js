@@ -13,7 +13,7 @@ exports.createUser = async (req, res) => {
 
 exports.showAllUsers = async (req, res) => {
   try {
-    console.log(process.env.ELIYA);
+    // console.log(process.env.ELIYA);
     const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
@@ -24,7 +24,8 @@ exports.showAllUsers = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    // console.log(req.params.userId);
+    const user = await User.find({ _id: req.params.userId });
     if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
   } catch (error) {

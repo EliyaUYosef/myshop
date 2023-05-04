@@ -6,10 +6,15 @@ const dbOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  serverSelectionTimeoutMS: 30000, // 30 seconds
 };
 
 const uri = process.env.MONGO_URI;
+// console.log(process.env.MONGO_URI);
 mongoose.connect(uri, dbOptions);
+
+// mongoose.set("bufferCommands", false);
+// mongoose.set("debug", true);
 
 mongoose.set("debug", (collectionName, method, query, doc) => {
   console.log(

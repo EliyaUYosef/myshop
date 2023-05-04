@@ -1,8 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 async function getAllBicycles(limit = 1, collection_name = "Product") {
-  const uri =
-    "mongodb+srv://eliyayosef:IV3KskqdDQaGk1RD@cluster0.wuchxyb.mongodb.net/?retryWrites=true&w=majority";
+  const uri = process.env.MONGO_URI;
   const client = await MongoClient.connect(uri, { useUnifiedTopology: true });
 
   const db = client.db("myshop");

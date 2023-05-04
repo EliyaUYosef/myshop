@@ -2,15 +2,18 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 
-// console.log("userRoutes.js:4");
+router.get("/:userId", userController.getUserById);
 
-// Update a user
-// router.put("/:userId", userController.updateUser);
+// Update a product
+router.put("/:userId", userController.updateUser);
 
-// Get all users with pagination, search query, limits, and order by
+// Delete a product
+router.delete("/:userId", userController.deleteUser);
+
+// Create a new product
+router.post("/", userController.createUser);
+
+// Get all products with pagination, search query, limits, and order by
 router.get("/", userController.showAllUsers);
-
-// Create a new user
-// router.post("/", userController.createUser);
 
 module.exports = router;

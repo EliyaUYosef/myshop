@@ -2,20 +2,35 @@ const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/productController");
 
-// Get a single product by ID
-router.get("/:productId", productController.getProductById);
+router.get("/", (req, res, next) => {
+  console.log("productRoute.js - GET METHOD");
+  // console.log("Request path:", req.path);
+  // console.log("Request body:", req.body);
+  next();
+});
+router.get("/:categoryId", (req, res) => {
+  console.log(req);
+  if (Object.keys(req.params.categoryId).length > 0) {
+    productController.getProductsByCategory(req, res);
+  } else {
+    return productController.showAllProductsCustom(req, res);
+  }
+});
+router.get("/", productController.showAllProductsCustom);
+
+// router.get("/:categoryId", productController.getProductsByCategory);
 
 // Update a product
 router.put("/:productId", productController.updateProduct);
 
 // Delete a product
-router.delete("/:productId", productController.deleteProductById);
 
 // Create a new product
 router.post("/", productController.createProduct);
 
+// Get products by category ID
+
 // Get all products with pagination, search query, limits, and order by
-// router.get("/", productController.showAllProductsCustom);
-router.get("/", productController.showAllProductsCustom);
+router.delete("/:productId", productController.deleteProductById);
 
 module.exports = router;

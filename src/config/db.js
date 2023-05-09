@@ -17,11 +17,13 @@ mongoose.connect(uri, dbOptions);
 // mongoose.set("debug", true);
 
 mongoose.set("debug", (collectionName, method, query, doc) => {
+  console.log("DB - - - - - - - - - - ");
   console.log(
     `M - - > ${collectionName}.${method}`,
     JSON.stringify(query),
     doc
   );
+  console.log(" - - - - - - - - - - - DB");
 });
 
 mongoose.connection.on("connected", () => {

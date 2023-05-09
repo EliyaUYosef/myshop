@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 exports.showAllCategories = async (req, res) => {
   try {
+    console.log("showAllCategories");
     const categories = await Category.find({});
     res.status(200).json({ categories });
   } catch (error) {

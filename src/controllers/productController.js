@@ -1,8 +1,54 @@
 const Product = require("../models/product");
 const mongoose = require("mongoose");
+const { ObjectId } = require("mongodb");
+
+// Get products by category ID
+exports.getProductsByCategory = async (req, res) => {
+  console.log("getProductsByCategory");
+  try {
+    const { categoryId } = req.params;
+    console.log(req.params);
+
+    // Pagination options
+    const page = parseInt(req.query.page) || 1; // default page is 1
+    const limit = parseInt(req.query.limit) || 15; // default limit is 15
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    // Order options
+    const sortBy = req.query.sortBy || "createdAt"; // default sort is by createdAt
+    const sortOrder = req.query.sortOrder || "desc"; // default sort order is descending
+
+    const sortOptions = { [sortBy]: sortOrder === "asc" ? 1 : -1 };
+
+    const products = await Product.find({
+      categoryIds: { $in: [ObjectId(categoryId)] },
+    })
+      .skip(startIndex)
+      .limit(limit)
+      .sort(sortOptions);
+
+    const items_amount = await Product.countDocuments({
+      categoryIds: { $in: [ObjectId(categoryId)] },
+    });
+
+    const pages_amount = Math.ceil(items_amount / limit);
+
+    res.status(200).json({
+      items_amount: products.length,
+      pages_amount,
+      page,
+      data: products,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
 
 exports.showAllProducts = async (req, res) => {
   try {
+    console.log("showAllProducts");
     const products = await Product.findOne({});
     res.status(200).json({ Product: products });
   } catch (error) {
@@ -32,6 +78,7 @@ exports.createProduct = async (req, res) => {
 
 exports.getProductById = async (req, res) => {
   const { productId } = req.params;
+  console.log("getProductById");
 
   try {
     const product = await Product.findById(productId);
@@ -87,6 +134,9 @@ exports.deleteProductById = async (req, res) => {
 };
 
 exports.showAllProductsCustom = async (req, res) => {
+  console.log("showAllProductsCustom");
+  console.log(req.params);
+
   const {
     page = 1,
     limit = 10,

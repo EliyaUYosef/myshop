@@ -26,6 +26,9 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       // required: true,
     },
+    categories_id: {
+      type: Array,
+    },
   },
   { timestamps: true }
 );

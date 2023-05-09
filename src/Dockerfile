@@ -1,20 +1,23 @@
-# Use an official Node.js runtime as a parent image
 FROM node:14
 
-# Set the working directory to /app
+# Create app directory
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Install any needed packages specified in package.json
+# Install dependencies
 RUN npm install
 
-# Make port 3000 available to the world outside this container
-EXPOSE 3000
+# Copy app source code
+COPY . .
 
-# Define environment variable
-ENV NODE_ENV=production
+# Set environment variables
+ENV PORT=3030
+ENV MONGO_URI="mongodb+srv://eliyayosef:IV3KskqdDQaGk1RD@cluster0.wuchxyb.mongodb.net/?retryWrites=true&w=majority"
 
-# Run app.js when the container launches
-CMD ["npm", "start"]
+# Expose port
+EXPOSE ${process.env.PORT}
+
+# Start the app
+CMD [ "npm", "start" ]

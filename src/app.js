@@ -5,7 +5,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3030;
 
 app.use(cookieParser());
 app.use(
@@ -19,6 +19,7 @@ app.use(
 const allowCrossDomain = function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  // res.header("Access-Control-Allow-Headers", "Content-Type");
   res.header("Access-Control-Allow-Headers", "Content-Type");
 
   next();
@@ -38,7 +39,18 @@ app.use(allowCrossDomain);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+  console.log("App.js - - - method:", req.method);
+  console.log("Received a request at", new Date());
+  console.log("Request path:", req.path);
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  next();
+});
+
 app.use("/api/products", productRoutes);
+app.use("/api/category/", productRoutes);
+
 app.use("/api/users", userRoutes);
 app.use("/api/categories", categoryRoutes);
 // app.post("/api/products", productController.createProduct);

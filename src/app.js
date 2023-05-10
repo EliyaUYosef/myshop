@@ -1,4 +1,6 @@
 const express = require("express");
+require("./config/constants");
+
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const session = require("express-session");
@@ -40,11 +42,11 @@ app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-  console.log("App.js - - - method:", req.method);
-  console.log("Received a request at", new Date());
-  console.log("Request path:", req.path);
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log(GREEN + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" + RESET);
+  console.log(GREEN + "App.js - - - method:" + RESET, req.method);
+  console.log(GREEN + "Received a request at" + RESET, new Date());
+  console.log(GREEN + "Request path:" + RESET, req.path);
+  console.log(GREEN + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + RESET);
   next();
 });
 
@@ -56,7 +58,7 @@ app.use("/api/categories", categoryRoutes);
 // app.post("/api/products", productController.createProduct);
 
 app.listen(port, () => {
-  console.log("Server listening on port " + port);
+  console.log(RED + `Server listening on port ${CYAN}` + port + RESET);
 });
 
 const db = require("./config/db"); // require the db module

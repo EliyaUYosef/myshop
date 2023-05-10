@@ -17,21 +17,20 @@ mongoose.connect(uri, dbOptions);
 // mongoose.set("debug", true);
 
 mongoose.set("debug", (collectionName, method, query, doc) => {
-  console.log("DB - - - - - - - - - - ");
-  console.log(
-    `M - - > ${collectionName}.${method}`,
-    JSON.stringify(query),
-    doc
-  );
-  console.log(" - - - - - - - - - - - DB");
+  if (!method.includes("Index") && !method.includes("count"))
+    console.log(
+      BLUE + `M - - > ${collectionName}.${method}` + RESET,
+      JSON.stringify(query),
+      doc
+    );
 });
 
 mongoose.connection.on("connected", () => {
-  console.log(`Connected to MongoDB database: ${dbName}`);
+  console.log(RED + `Connected to MongoDB database: ${CYAN}${dbName}` + RESET);
 });
 
 mongoose.connection.on("error", (err) => {
-  console.log(`MongoDB connection error: ${err}`);
+  console.log(RED + `MongoDB connection error: ${err}` + RESET);
 });
 
 module.exports = mongoose.connection;

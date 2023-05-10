@@ -4,12 +4,10 @@ const productController = require("../controllers/productController");
 
 router.get("/", (req, res, next) => {
   console.log("productRoute.js - GET METHOD");
-  // console.log("Request path:", req.path);
-  // console.log("Request body:", req.body);
   next();
 });
 router.get("/:categoryId", (req, res) => {
-  console.log(req);
+  // console.log(req);
   if (Object.keys(req.params.categoryId).length > 0) {
     productController.getProductsByCategory(req, res);
   } else {

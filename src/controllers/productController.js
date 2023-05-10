@@ -4,10 +4,9 @@ const { ObjectId } = require("mongodb");
 
 // Get products by category ID
 exports.getProductsByCategory = async (req, res) => {
-  console.log("getProductsByCategory");
+  console.log(PURPLE + "getProductsByCategory" + RESET);
   try {
     const { categoryId } = req.params;
-    console.log(req.params);
 
     // Pagination options
     const page = parseInt(req.query.page) || 1; // default page is 1

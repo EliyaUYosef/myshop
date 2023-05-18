@@ -15,15 +15,16 @@ mongoose.connect(uri, dbOptions);
 
 // mongoose.set("bufferCommands", false);
 // mongoose.set("debug", true);
-
-mongoose.set("debug", (collectionName, method, query, doc) => {
-  if (!method.includes("Index") && !method.includes("count"))
-    console.log(
-      BLUE + `M - - > ${collectionName}.${method}` + RESET,
-      JSON.stringify(query),
-      doc
-    );
-});
+if (DEBUG_MODE) {
+  mongoose.set("debug", (collectionName, method, query, doc) => {
+    if (!method.includes("Index") && !method.includes("count"))
+      console.log(
+        BLUE + `M - - > ${collectionName}.${method}` + RESET,
+        JSON.stringify(query),
+        doc
+      );
+  });
+}
 
 mongoose.connection.on("connected", () => {
   console.log(RED + `Connected to MongoDB database: ${CYAN}${dbName}` + RESET);

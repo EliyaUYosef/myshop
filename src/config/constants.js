@@ -16,3 +16,5 @@ global.LIGHT_MAGENTA = "\x1b[95m";
 global.LIGHT_CYAN = "\x1b[96m";
 global.WHITE = "\x1b[97m";
 global.RESET = "\x1b[0m";
+
+global.DEBUG_MODE = true;

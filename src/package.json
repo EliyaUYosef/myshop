@@ -4,9 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node app.js",
-    "start2": "node index.js",
-    "dev": "nodemon app.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "mocha",
     "lint": "eslint .",
     "seed": "node ./handler/setCategories_for_sample_products.js"

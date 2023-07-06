@@ -1,0 +1,6 @@
+
+GET http://localhost:3030/api/test/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkVsaXlhIiwicGhvbmUiOiIrOTcyNTI1Njc2MDc3IiwiaWF0IjoxNjg4MTI1NzM5fQ.HLTWFQKciYJ_ccN9WyZSnyyFn3Qnhb29KdHSDewMHms
+
+###
+GET http://localhost:3030/api/todos/ HTTP/1.1

@@ -15,7 +15,7 @@ mongoose.connect(uri, dbOptions);
 
 // mongoose.set("bufferCommands", false);
 // mongoose.set("debug", true);
-if (DEBUG_MODE) {
+if (DB_DEBUG_MODE) {
   mongoose.set("debug", (collectionName, method, query, doc) => {
     if (!method.includes("Index") && !method.includes("count"))
       console.log(
